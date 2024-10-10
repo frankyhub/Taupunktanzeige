@@ -159,8 +159,7 @@ float tempC = 0;
 
 char TempCelciusFahrenheit[6];
 
-//float tempF = 0;
-
+//Taupunktberechnung
 double dewPoint(double celsius, double humidity){
 double RATIO = 373.15 / (273.15 + celsius);
 double RHS = -7.90298 * (RATIO - 1);
@@ -198,13 +197,6 @@ void setup() {
     tft.setTextColor (WHITE,GREY);
     tft.print ("Taupunkt");
 
- /*   
-    tft.setCursor (295,125);
-    tft.setTextColor (GREEN,GREY);
-    tft.print ("C");
-    tft.setCursor (281,121);
-    tft.print ("o");
-*/
     tft.setCursor (245,155);
     tft.setTextColor (WHITE,GREY);
     tft.print ("Licht");
@@ -240,7 +232,6 @@ void loop() {
 //float tempF = 0;
 sensors.requestTemperatures();
 tempC = sensors.getTempCByIndex(0);
-//tempF = sensors.toFahrenheit(tempC);
 
  Serial.print("DS18B20 Temperatur: "); 
  Serial.print(sensors.getTempCByIndex(0));  // "byIndex(0)" spricht den ersten Sensor an  
@@ -291,16 +282,7 @@ tempC = sensors.getTempCByIndex(0);
     tft.print ("C");
     }
 
-  /*  
-    if(f>0){  //Fahrenheit
-    tft.setCursor (150,207);
-    tft.setTextSize (2);
-    tft.setTextColor (WHITE,GREY);
-    tft.print (f,0); 
-    tesmod=1;}
-  */
-
-    
+  
   if (millis() - runTime >= 500) { // Alle 500 ms ausführen
     runTime = millis();
     if (tesmod == 0) {
