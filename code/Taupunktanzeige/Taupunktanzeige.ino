@@ -104,11 +104,11 @@ ILI9341_BLUE
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
 
 #include <OneWire.h>
-#include <DallasTemperature.h>   
+#include <DallasTemperature.h>  //Raumtemp. 
 #include "DHT.h"
 
-#define ONE_WIRE_BUS 10
-#define DHTPIN 2
+#define ONE_WIRE_BUS 15
+#define DHTPIN 2 //Wandtemp.
 #define DHTTYPE DHT11
 //#define DHTTYPE DHT21
 //#define DHTTYPE DHT22
@@ -159,7 +159,7 @@ float tempC = 0;
 
 char TempCelciusFahrenheit[6];
 
-float tempF = 0;
+//float tempF = 0;
 
 double dewPoint(double celsius, double humidity){
 double RATIO = 373.15 / (273.15 + celsius);
@@ -236,11 +236,15 @@ void setup() {
 
 void loop() {
 
-float tempC = 0;
-float tempF = 0;
+//float tempC = 0;
+//float tempF = 0;
 sensors.requestTemperatures();
 tempC = sensors.getTempCByIndex(0);
-tempF = sensors.toFahrenheit(tempC);
+//tempF = sensors.toFahrenheit(tempC);
+
+ Serial.print("DS18B20 Temperatur: "); 
+ Serial.print(sensors.getTempCByIndex(0));  // "byIndex(0)" spricht den ersten Sensor an  
+ Serial.println(" °C ");
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -270,17 +274,21 @@ tempF = sensors.toFahrenheit(tempC);
     tft.setTextSize (2);
     tft.setTextColor (WHITE,GREY);
     tft.print (t,1);
-    tft.print (" C");
+    tft.print("`");
+    tft.print ("C");
   
     tft.setCursor (240,125);
     tft.setTextSize (2);
     tft.setTextColor (GREEN,GREY);
     tft.print (dewPoint(t, h));
     
-    tft.setCursor (10,214);
+    tft.setCursor (5,214);
     tft.setTextSize (2);
     tft.setTextColor (WHITE,GREY);
-//    tft.print ("Fahrenheit");
+    tft.print ("Raumtemp. ");
+    tft.print (tempC);
+    tft.print("`");
+    tft.print ("C");
     }
 
   /*  
@@ -304,7 +312,7 @@ tempF = sensors.toFahrenheit(tempC);
     int xpos = 0, ypos = 5, gap = 4, radius = 52;
     // Große Anzeige
     xpos = 320 / 2 - 160, ypos = 0, gap = 100, radius = 100;
-    ringMeter(reading, 1, 99, xpos, ypos, radius, "Temperatur", GREEN2RED); 
+    ringMeter(reading, 1, 99, xpos, ypos, radius, "Wandtemp.", GREEN2RED); 
     if (h > 0) { //Humidity %
       tft.setCursor (245, 30); //157,208
       tft.setTextSize (2);
