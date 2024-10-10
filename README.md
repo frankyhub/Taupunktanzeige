@@ -19,6 +19,10 @@ ESP32, TFT2.8, DHT11, DS18b20, LDR
 ![Bild](pic/Taupunktanzeige.png)
 
 
+![Bild](pic/W-L-Diagramm.png)
+
+
+
 ---
 
 <div style="position:absolute; left:2cm; ">   
