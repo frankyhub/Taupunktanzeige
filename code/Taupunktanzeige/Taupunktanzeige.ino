@@ -1,97 +1,97 @@
 /*************************************************************************************************
                                       PROGRAMMINFO
 **************************************************************************************************
-Funktion: TFT 2.8 Taupunktanzeige 
+  Funktion: TFT 2.8 Taupunktanzeige
 
 **************************************************************************************************
-Version: 09.10.2024
+  Version: 09.10.2024
 **************************************************************************************************
-Board: ESP32 DEV Module
+  Board: ESP32 DEV Module
 **************************************************************************************************
-Libraries:
-https://github.com/espressif/arduino-esp32/tree/master/libraries
-C:\Users\User\Documents\Arduino
-D:\gittemp\Arduino II\A156_Wetterdaten_V3
+  Libraries:
+  https://github.com/espressif/arduino-esp32/tree/master/libraries
+  C:\Users\User\Documents\Arduino
+  D:\gittemp\Arduino II\A156_Wetterdaten_V3
 **************************************************************************************************
-C++ Arduino IDE V1.8.19
+  C++ Arduino IDE V1.8.19
 **************************************************************************************************
-Einstellungen:
-https://dl.espressif.com/dl/package_esp32_index.json
-http://dan.drown.org/stm32duino/package_STM32duino_index.json
-http://arduino.esp8266.com/stable/package_esp8266com_index.json
+  Einstellungen:
+  https://dl.espressif.com/dl/package_esp32_index.json
+  http://dan.drown.org/stm32duino/package_STM32duino_index.json
+  http://arduino.esp8266.com/stable/package_esp8266com_index.json
 **************************************************************************************************
-TFT Bibliotheken:
+  TFT Bibliotheken:
 
-Adafruit_ILI9341 by Adafruit Version 1.6.00
-Adafruit_GFX by Adafruit Version 1.11.9
-XPT2046_Touchscreen by Paul Stoffregen Version 1.4.0
-Touchevent by Gerald-Lechner Version 1.3.0
+  Adafruit_ILI9341 by Adafruit Version 1.6.00
+  Adafruit_GFX by Adafruit Version 1.11.9
+  XPT2046_Touchscreen by Paul Stoffregen Version 1.4.0
+  Touchevent by Gerald-Lechner Version 1.3.0
 
-/***************************************************
+  /***************************************************
 
-Verdrahtung
-TFT-Display  ESP32
-VCC     3,3V
-GND     GDN
-CS      GPIO5
-RESET   GPIO22
-DC      GPIO4
-SDI     GPIO23
-SCK     GPIO18
-LED     3,3V
-MISO    GPIO19
-T-CLK   GPIO18
-T-CS    GPIO14
-T-DIN   GPIO23
-T-DO    GPIO19
-T-IRQ   GPIO27
+  Verdrahtung
+  TFT-Display  ESP32
+  VCC     3,3V
+  GND     GDN
+  CS      GPIO5
+  RESET   GPIO22
+  DC      GPIO4
+  SDI     GPIO23
+  SCK     GPIO18
+  LED     3,3V
+  MISO    GPIO19
+  T-CLK   GPIO18
+  T-CS    GPIO14
+  T-DIN   GPIO23
+  T-DO    GPIO19
+  T-IRQ   GPIO27
 
-// TFT2.8 Farben
-ILI9341_ORANGE
-ILI9341_BLACK
-ILI9341_RED
-ILI9341_WHITE
-ILI9341_YELLOW
-ILI9341_LIGHTGREY
-ILI9341_BLUE
+  // TFT2.8 Farben
+  ILI9341_ORANGE
+  ILI9341_BLACK
+  ILI9341_RED
+  ILI9341_WHITE
+  ILI9341_YELLOW
+  ILI9341_LIGHTGREY
+  ILI9341_BLUE
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// ##################################################################################
-// TFT_eSPI User_Setup.h
-// TFT 2.8
-// ##################################################################################
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // ##################################################################################
+  // TFT_eSPI User_Setup.h
+  // TFT 2.8
+  // ##################################################################################
 
-#define ST7735_DRIVER      // Define additional parameters below for this display
-#define TFT_WIDTH  240 // ST7789 240 x 320
-#define TFT_HEIGHT 320 // ST7789 240 x 320
-#define ST7735_REDTAB
+  #define ST7735_DRIVER      // Define additional parameters below for this display
+  #define TFT_WIDTH  240 // ST7789 240 x 320
+  #define TFT_HEIGHT 320 // ST7789 240 x 320
+  #define ST7735_REDTAB
 
-// For ESP32 Dev board (only tested with ILI9341 display)
+  // For ESP32 Dev board (only tested with ILI9341 display)
 
-#define TFT_MISO 19
-#define TFT_MOSI 23
-#define TFT_SCLK 18
-#define TFT_CS   5   // Chip select control pin
-#define TFT_DC   4   // Data Command control pin
-#define TFT_RST  14  // Reset pin (could connect to RST pin)
+  #define TFT_MISO 19
+  #define TFT_MOSI 23
+  #define TFT_SCLK 18
+  #define TFT_CS   5   // Chip select control pin
+  #define TFT_DC   4   // Data Command control pin
+  #define TFT_RST  14  // Reset pin (could connect to RST pin)
 
-#define LOAD_GLCD   // Font 1. Original Adafruit 8 pixel font needs ~1820 bytes in FLASH
-#define LOAD_FONT2  // Font 2. Small 16 pixel high font, needs ~3534 bytes in FLASH, 96 characters
-#define LOAD_FONT4  // Font 4. Medium 26 pixel high font, needs ~5848 bytes in FLASH, 96 characters
-#define LOAD_FONT6  // Font 6. Large 48 pixel font, needs ~2666 bytes in FLASH, only characters 1234567890:-.apm
-#define LOAD_FONT7  // Font 7. 7 segment 48 pixel font, needs ~2438 bytes in FLASH, only characters 1234567890:-.
-#define LOAD_FONT8  // Font 8. Large 75 pixel font needs ~3256 bytes in FLASH, only characters 1234567890:-.
-#define LOAD_GFXFF  // FreeFonts. Include access to the 48 Adafruit_GFX free fonts FF1 to FF48 and custom fonts
-#define SMOOTH_FONT
-#define SPI_FREQUENCY  27000000 // Actually sets it to 26.67MHz = 80/3
-#define SPI_READ_FREQUENCY  20000000
-#define SPI_TOUCH_FREQUENCY  2500000
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  #define LOAD_GLCD   // Font 1. Original Adafruit 8 pixel font needs ~1820 bytes in FLASH
+  #define LOAD_FONT2  // Font 2. Small 16 pixel high font, needs ~3534 bytes in FLASH, 96 characters
+  #define LOAD_FONT4  // Font 4. Medium 26 pixel high font, needs ~5848 bytes in FLASH, 96 characters
+  #define LOAD_FONT6  // Font 6. Large 48 pixel font, needs ~2666 bytes in FLASH, only characters 1234567890:-.apm
+  #define LOAD_FONT7  // Font 7. 7 segment 48 pixel font, needs ~2438 bytes in FLASH, only characters 1234567890:-.
+  #define LOAD_FONT8  // Font 8. Large 75 pixel font needs ~3256 bytes in FLASH, only characters 1234567890:-.
+  #define LOAD_GFXFF  // FreeFonts. Include access to the 48 Adafruit_GFX free fonts FF1 to FF48 and custom fonts
+  #define SMOOTH_FONT
+  #define SPI_FREQUENCY  27000000 // Actually sets it to 26.67MHz = 80/3
+  #define SPI_READ_FREQUENCY  20000000
+  #define SPI_TOUCH_FREQUENCY  2500000
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ****************************************************/
 
 #include "Adafruit_ILI9341.h"     //Display driver
 #include <XPT2046_Touchscreen.h>  //Touchscreen driver
-#include <TouchEvent.h>           
+#include <TouchEvent.h>
 
 #define TOUCH_CS 14
 #define TOUCH_IRQ 27
@@ -120,7 +120,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 int LDRpin = 0;
 char lightString [4];
-String str; 
+String str;
 extern uint8_t temperatureIcon[];
 
 int lightIntensity = 0;
@@ -134,11 +134,6 @@ int lightIntensity = 0;
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0
 #define GREY    0x2108
-
-
-
-#define MINPRESSURE 10
-#define MAXPRESSURE 1000
 
 // Farbschema
 #define RED2RED 0
@@ -160,16 +155,16 @@ float tempC = 0;
 char TempCelciusFahrenheit[6];
 
 //Taupunktberechnung
-double dewPoint(double celsius, double humidity){
-double RATIO = 373.15 / (273.15 + celsius);
-double RHS = -7.90298 * (RATIO - 1);
-RHS += 5.02808 * log10(RATIO);
-RHS += -1.3816e-7 * (pow(10, (11.344 * (1 - 1 / RATIO ))) - 1) ;
-RHS += 8.1328e-3 * (pow(10, (-3.49149 * (RATIO - 1))) - 1) ;
-RHS += log10(1013.246);
-double VP = pow(10, RHS - 3) * humidity;
-double T = log(VP / 0.61078); // temp var
-return (241.88 * T) / (17.558 - T);
+double dewPoint(double celsius, double humidity) {
+  double RATIO = 373.15 / (273.15 + celsius);
+  double RHS = -7.90298 * (RATIO - 1);
+  RHS += 5.02808 * log10(RATIO);
+  RHS += -1.3816e-7 * (pow(10, (11.344 * (1 - 1 / RATIO ))) - 1) ;
+  RHS += 8.1328e-3 * (pow(10, (-3.49149 * (RATIO - 1))) - 1) ;
+  RHS += log10(1013.246);
+  double VP = pow(10, RHS - 3) * humidity;
+  double T = log(VP / 0.61078); // temp var
+  return (241.88 * T) / (17.558 - T);
 }
 
 void setup() {
@@ -180,42 +175,37 @@ void setup() {
   tft.begin();
   tft.setRotation(3);
 
-  tft.fillScreen(GREY); 
+  tft.fillScreen(GREY);
   tft.setCursor (250, 5);
   tft.setTextSize (2);
-  tft.setTextColor (WHITE,GREY);
+  tft.setTextColor (WHITE, GREY);
   tft.print ("rLF%");
-  
 
   tft.setCursor (248, 57);
   tft.setTextColor (WHITE, GREY);
   tft.print ("Temp.");
-  
 
+  tft.setCursor (223, 105);
+  tft.setTextColor (WHITE, GREY);
+  tft.print ("Taupunkt");
 
-    tft.setCursor (223,105);
-    tft.setTextColor (WHITE,GREY);
-    tft.print ("Taupunkt");
+  tft.setCursor (245, 155);
+  tft.setTextColor (WHITE, GREY);
+  tft.print ("Licht");
 
-    tft.setCursor (245,155);
-    tft.setTextColor (WHITE,GREY);
-    tft.print ("Licht");
+  tft.setCursor (235, 205);
+  tft.setTextSize (1);
+  tft.setTextColor (WHITE, GREY);
+  tft.print ("KHF");
 
-    tft.setCursor (235,205);
-    tft.setTextSize (1);
-    tft.setTextColor (WHITE,GREY);
-    tft.print ("KHF");
+  tft.setCursor (245, 218);
+  tft.setTextColor (WHITE, GREY);
+  tft.print ("Taupunkt");
 
-    tft.setCursor (245,218);
-    tft.setTextColor (WHITE,GREY);
-    tft.print ("Taupunkt");
+  tft.setCursor (270, 230);
+  tft.setTextColor (WHITE, GREY);
+  tft.print ("Anzeige");
 
-    tft.setCursor (270,230);
-    tft.setTextColor (WHITE,GREY);
-    tft.print ("Anzeige");
-
-    
-      
   //Felder
   tft.fillRect(0, 197, 217, 4, BLUE);
   tft.fillRect(217, 98, 320, 4, BLUE);
@@ -228,14 +218,12 @@ void setup() {
 
 void loop() {
 
-//float tempC = 0;
-//float tempF = 0;
-sensors.requestTemperatures();
-tempC = sensors.getTempCByIndex(0);
+  sensors.requestTemperatures();
+  tempC = sensors.getTempCByIndex(0);
 
- Serial.print("DS18B20 Temperatur: "); 
- Serial.print(sensors.getTempCByIndex(0));  // "byIndex(0)" spricht den ersten Sensor an  
- Serial.println(" °C ");
+  Serial.print("DS18B20 Temperatur: ");
+  Serial.print(sensors.getTempCByIndex(0));  // "byIndex(0)" spricht den ersten Sensor an
+  Serial.println(" °C ");
 
   float h = dht.readHumidity();
   float t = dht.readTemperature();
@@ -245,44 +233,41 @@ tempC = sensors.getTempCByIndex(0);
   lightIntensity = analogRead(LDRpin);
   lightIntensity = map(lightIntensity, 4096, 20, 0, 99);
 
-//  str = String(lightIntensity);  //+"%"
-//  str.toCharArray(lightString,5);
- 
   //Licht
-  tft.setCursor (250,175);
+  tft.setCursor (250, 175);
   tft.setTextSize(2);
-  tft.setTextColor( YELLOW,GREY);
-  tft.print(lightIntensity);   
+  tft.setTextColor( YELLOW, GREY);
+  tft.print(lightIntensity);
   tft.print ("%");
-  
-   if(hif>0){  //Fahrenheit
-    tft.setCursor (240,115);
-    tft.setTextSize (3);
-    tft.setTextColor (WHITE,GREY);
-    tesmod=1;
 
-    tft.setCursor (240,78); //Temperatur °C
+  if (hif > 0) { 
+    tft.setCursor (240, 115);
+    tft.setTextSize (3);
+    tft.setTextColor (WHITE, GREY);
+    tesmod = 1;
+
+    tft.setCursor (240, 78); //Temperatur °C
     tft.setTextSize (2);
-    tft.setTextColor (WHITE,GREY);
-    tft.print (t,1);
+    tft.setTextColor (WHITE, GREY);
+    tft.print (t, 1);
     tft.print("`");
     tft.print ("C");
-  
-    tft.setCursor (240,125);
+
+    tft.setCursor (240, 125);
     tft.setTextSize (2);
-    tft.setTextColor (GREEN,GREY);
+    tft.setTextColor (GREEN, GREY);
     tft.print (dewPoint(t, h));
-    
-    tft.setCursor (5,214);
+
+    tft.setCursor (5, 214);
     tft.setTextSize (2);
-    tft.setTextColor (WHITE,GREY);
+    tft.setTextColor (WHITE, GREY);
     tft.print ("Raumtemp. ");
     tft.print (tempC);
     tft.print("`");
     tft.print ("C");
-    }
+  }
 
-  
+
   if (millis() - runTime >= 500) { // Alle 500 ms ausführen
     runTime = millis();
     if (tesmod == 0) {
@@ -294,7 +279,7 @@ tempC = sensors.getTempCByIndex(0);
     int xpos = 0, ypos = 5, gap = 4, radius = 52;
     // Große Anzeige
     xpos = 320 / 2 - 160, ypos = 0, gap = 100, radius = 100;
-    ringMeter(reading, 1, 99, xpos, ypos, radius, "Wandtemp.", GREEN2RED); 
+    ringMeter(reading, 1, 99, xpos, ypos, radius, "Wandtemp.", GREEN2RED);
     if (h > 0) { //Humidity %
       tft.setCursor (245, 30); //157,208
       tft.setTextSize (2);
@@ -303,31 +288,31 @@ tempC = sensors.getTempCByIndex(0);
       tesmod = 1;
     }
   }
-      tft.setTextColor (YELLOW);
- //   tft.setTextSize (6);
- //   tft.setCursor (185,60);
- //   tft.print ("C");
-    tft.setTextSize (4);
-    tft.setCursor (150,50);
-    tft.print ("o");
+  tft.setTextColor (YELLOW);
+  //   tft.setTextSize (6);
+  //   tft.setCursor (185,60);
+  //   tft.print ("C");
+  tft.setTextSize (4);
+  tft.setCursor (150, 50);
+  tft.print ("o");
 }
 //------------------ ENDE LOOP ------------------------------------------------------------
 
 
 int ringMeter(int value, int vmin, int vmax, int x, int y, int r, char *units, byte scheme)
 {
-  
-  x += r; y += r;   
-  int w = r / 3;    
-  int angle = 150;  
-  int v = map(value, vmin, vmax, -angle, angle); 
-  byte seg = 3; 
-  byte inc = 6; 
-  
+
+  x += r; y += r;
+  int w = r / 3;
+  int angle = 150;
+  int v = map(value, vmin, vmax, -angle, angle);
+  byte seg = 3;
+  byte inc = 6;
+
   int colour = GREY;
-  
+
   for (int i = -angle + inc / 2; i < angle - inc / 2; i += inc) {
-    
+
     float sx = cos((i - 90) * 0.0174532925);
     float sy = sin((i - 90) * 0.0174532925);
     uint16_t x0 = sx * (r - w) + x;
@@ -365,7 +350,7 @@ int ringMeter(int value, int vmin, int vmax, int x, int y, int r, char *units, b
   char buf[10];
   byte len = 0;  if (value > 999) len = 5;
   dtostrf(value, 1, len, buf);
-  //buf[len] = 1; 
+  //buf[len] = 1;
   //buf[len] = 2; // Füge Leerzeichen und Terminator hinzu, hilft auch bei der Zentrierung des Textes!
   // Lege die Textfarbe auf die Standardeinstellung fest
   if (value > 7) {
