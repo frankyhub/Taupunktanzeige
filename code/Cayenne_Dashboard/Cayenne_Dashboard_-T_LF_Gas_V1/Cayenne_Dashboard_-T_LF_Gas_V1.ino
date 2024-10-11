@@ -1,6 +1,5 @@
 /*ESP8266 mit DHT11 Sensor und Relais gesteuert über MQTT Dashboard Cayenne
  * https://mydevices.com
- * https://www.az-delivery.de/blogs/azdelivery-blog-fur-arduino-und-raspberry-pi/arbeiten-mit-dem-cayenne-dashboard-teil-1
  * Arbeiten mit dem Cayenne Dashboard - einfacher Sensor (Teil 1)
  * Cayenne Login:
  * https://accounts.mydevices.com/auth/realms/cayenne/protocol/openid-connect/auth?response_type=code&scope=email+profile&client_id=cayenne-web-app&state=5taigvIe4wpHj7u3j1Qi1FOT3078XaHSOKW73aQO&redirect_uri=https%3A%2F%2Fcayenne.mydevices.com%2Fauth%2Fcallback
